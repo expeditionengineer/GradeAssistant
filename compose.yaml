@@ -1,0 +1,24 @@
+services:
+  web: 
+    build:
+      context: app
+      target: builder
+    ports: 
+      - '8000:8000'
+    volumes:
+      - ${PWD}/app:/app
+    env_file:
+      - .env
+    depends_on:
+        - postgres
+  postgres:
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+    - ${DATABASE_OUTSIDE_PORT}:${DATABASE_INSIDE_PORT}
+
+volumes:
+  pgdata:
