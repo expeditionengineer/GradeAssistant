@@ -19,6 +19,16 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
     - ${DATABASE_OUTSIDE_PORT}:${DATABASE_INSIDE_PORT}
-
+  frontend:
+    build:
+      context: frontend
+      target: development
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/src:/code/src
+      - /code/node_modules
+    depends_on:
+      - web
 volumes:
   pgdata:
