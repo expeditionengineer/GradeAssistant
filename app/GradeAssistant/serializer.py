@@ -20,7 +20,7 @@ class ClassSerializer(ModelSerializer):
 class GradeSerializer(ModelSerializer):
     """Convert Model instances of type `Grade` into python datatypes
 
-    """
+    """    
     class Meta:
         model = Grade
         fields = "__all__"

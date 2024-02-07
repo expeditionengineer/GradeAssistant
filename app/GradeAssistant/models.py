@@ -24,7 +24,8 @@ class Grade(models.Model):
 
     """
     points = models.IntegerField(default=0, choices=((i,i) for i in range(0, 15)), blank=True)
-    weight = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(1.0)])
+    weight = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(1.0)], blank=True)
     parent = models.ForeignKey("Grade", on_delete=models.CASCADE, blank=True, null=True)
     students = models.ManyToManyField("Student")
+    description = models.CharField(max_length=30, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

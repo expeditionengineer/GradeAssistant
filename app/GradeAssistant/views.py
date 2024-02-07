@@ -125,3 +125,21 @@ class UserLogin(APIView):
             # user = authenticate(username=data["username"], password=data["password"])
             # login(request, user)
             return Response({"username": data["username"], "token": token.key}, status=status.HTTP_200_OK)
+
+@api_view(["POST"])
+def add_grade(request):
+    """
+
+    """
+    # print(request)
+    if request.user.is_authenticated:
+        # data = request.data
+        print(request)
+        serializer = GradeSerializer(data=request)
+        
+        if serializer.is_valid(raise_exception=True):
+            serializer.create()
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response([{"Login": False}])

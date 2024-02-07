@@ -1,22 +1,16 @@
 import React from "react";
+import Student from "./Student.js";
 
 export default function ClassComponent(props) {
     const [clickedClass, setClassClicked] = React.useState(-1);
     if (clickedClass !== -1) {
-        for (var i = 0; i < props.classObject.length; i++) {
-            if (props.classObject[i].id === clickedClass) {
-
-                return (
-                    <div>
-                        <h1>Class Clicked</h1>
-                    </div>
-                )
-            }
-        }
+        const studentArray = props.classObject.student.map(currentStudent => {
+            return <Student student={currentStudent} token={props.token} />
+        })
         return (
             <div>
-                <h1>Error! Data for the clicked class could not be found. </h1>
-                <p>Go back to classes overview:</p>
+                <h1>Details of Class {props.classObject.className}</h1>
+                {studentArray}
                 <button onClick={() => setClassClicked(-1)}>Back</button>
             </div>
         )

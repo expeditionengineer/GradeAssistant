@@ -1,0 +1,15 @@
+#!/bin/bash
+
+command=$1
+
+dockerContainer=gradeassistant-web-1
+
+if [ "$command" == "migrate" ]; then
+    docker exec $dockerContainer python manage.py migrate
+elif [ "$command" == "makemigrations" ]; then
+    docker exec $dockerContainer python manage.py makemigrations
+elif [ "$command" == "test" ]; then
+    docker exec -it $dockerContainer python manage.py test GradeAssistant.test_views AddGradeTestCase.test_add_grade_authenticated
+else
+    echo "Invalid command. Please provide 'migrate' or 'makemigrations' as the command."
+fi
